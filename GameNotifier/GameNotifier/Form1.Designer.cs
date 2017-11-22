@@ -28,20 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.rdbtnAlwaysRepeat = new System.Windows.Forms.RadioButton();
             this.lbTime = new System.Windows.Forms.Label();
             this.lbNotify = new System.Windows.Forms.Label();
-            this.lbRepeat = new System.Windows.Forms.Label();
+            this.lblRepeat = new System.Windows.Forms.Label();
             this.lbNotifySub = new System.Windows.Forms.Label();
             this.lbRepeatSub = new System.Windows.Forms.Label();
-            this.txtTime = new System.Windows.Forms.TextBox();
-            this.txtNotify = new System.Windows.Forms.TextBox();
-            this.txtRepeat = new System.Windows.Forms.TextBox();
             this.rdbtnAM = new System.Windows.Forms.RadioButton();
             this.rdbtnPM = new System.Windows.Forms.RadioButton();
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.lsbGames = new System.Windows.Forms.ListBox();
             this.lsbGameItems = new System.Windows.Forms.ListBox();
@@ -52,8 +46,17 @@
             this.lblFind = new System.Windows.Forms.Label();
             this.lblActive = new System.Windows.Forms.Label();
             this.lblCustomize = new System.Windows.Forms.Label();
-            this.numUDTime = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.numUDTime)).BeginInit();
+            this.lblColon = new System.Windows.Forms.Label();
+            this.nudNotifyMin = new System.Windows.Forms.NumericUpDown();
+            this.nudRepeat = new System.Windows.Forms.NumericUpDown();
+            this.dudTimeHr = new System.Windows.Forms.DomainUpDown();
+            this.dudTimeMin = new System.Windows.Forms.DomainUpDown();
+            this.grpbAmPm = new System.Windows.Forms.GroupBox();
+            this.chbAlwaysRepeat = new System.Windows.Forms.CheckBox();
+            this.btnDelete = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.nudNotifyMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRepeat)).BeginInit();
+            this.grpbAmPm.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAdd
@@ -64,26 +67,13 @@
             this.btnAdd.Font = new System.Drawing.Font("Joystix", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.btnAdd.Image = global::GameNotifier.Properties.Resources.btnBackgroundV1;
-            this.btnAdd.Location = new System.Drawing.Point(517, 526);
+            this.btnAdd.Location = new System.Drawing.Point(501, 526);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(0);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(170, 37);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "ADD";
             this.btnAdd.UseVisualStyleBackColor = true;
-            // 
-            // rdbtnAlwaysRepeat
-            // 
-            this.rdbtnAlwaysRepeat.AutoSize = true;
-            this.rdbtnAlwaysRepeat.Font = new System.Drawing.Font("Joystix", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbtnAlwaysRepeat.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.rdbtnAlwaysRepeat.Location = new System.Drawing.Point(547, 455);
-            this.rdbtnAlwaysRepeat.Name = "rdbtnAlwaysRepeat";
-            this.rdbtnAlwaysRepeat.Size = new System.Drawing.Size(116, 24);
-            this.rdbtnAlwaysRepeat.TabIndex = 1;
-            this.rdbtnAlwaysRepeat.TabStop = true;
-            this.rdbtnAlwaysRepeat.Text = "Always";
-            this.rdbtnAlwaysRepeat.UseVisualStyleBackColor = true;
             // 
             // lbTime
             // 
@@ -96,7 +86,6 @@
             this.lbTime.Size = new System.Drawing.Size(147, 45);
             this.lbTime.TabIndex = 2;
             this.lbTime.Text = "Time";
-            this.lbTime.Click += new System.EventHandler(this.label1_Click);
             // 
             // lbNotify
             // 
@@ -110,17 +99,17 @@
             this.lbNotify.TabIndex = 3;
             this.lbNotify.Text = "Notify";
             // 
-            // lbRepeat
+            // lblRepeat
             // 
-            this.lbRepeat.AutoSize = true;
-            this.lbRepeat.Font = new System.Drawing.Font("Joystix", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbRepeat.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.lbRepeat.Image = global::GameNotifier.Properties.Resources.btnBackgroundV1;
-            this.lbRepeat.Location = new System.Drawing.Point(369, 401);
-            this.lbRepeat.Name = "lbRepeat";
-            this.lbRepeat.Size = new System.Drawing.Size(171, 34);
-            this.lbRepeat.TabIndex = 4;
-            this.lbRepeat.Text = "Repeat";
+            this.lblRepeat.AutoSize = true;
+            this.lblRepeat.Font = new System.Drawing.Font("Joystix", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRepeat.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblRepeat.Image = global::GameNotifier.Properties.Resources.btnBackgroundV1;
+            this.lblRepeat.Location = new System.Drawing.Point(369, 401);
+            this.lblRepeat.Name = "lblRepeat";
+            this.lblRepeat.Size = new System.Drawing.Size(171, 34);
+            this.lblRepeat.TabIndex = 4;
+            this.lblRepeat.Text = "Repeat";
             // 
             // lbNotifySub
             // 
@@ -128,7 +117,7 @@
             this.lbNotifySub.Font = new System.Drawing.Font("Joystix", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNotifySub.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.lbNotifySub.Image = global::GameNotifier.Properties.Resources.btnBackgroundV1;
-            this.lbNotifySub.Location = new System.Drawing.Point(649, 297);
+            this.lbNotifySub.Location = new System.Drawing.Point(652, 293);
             this.lbNotifySub.Name = "lbNotifySub";
             this.lbNotifySub.Size = new System.Drawing.Size(154, 20);
             this.lbNotifySub.TabIndex = 5;
@@ -140,89 +129,45 @@
             this.lbRepeatSub.Font = new System.Drawing.Font("Joystix", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbRepeatSub.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.lbRepeatSub.Image = global::GameNotifier.Properties.Resources.btnBackgroundV1;
-            this.lbRepeatSub.Location = new System.Drawing.Point(649, 418);
+            this.lbRepeatSub.Location = new System.Drawing.Point(652, 409);
             this.lbRepeatSub.Name = "lbRepeatSub";
             this.lbRepeatSub.Size = new System.Drawing.Size(79, 20);
             this.lbRepeatSub.TabIndex = 6;
             this.lbRepeatSub.Text = "Times";
             // 
-            // txtTime
-            // 
-            this.txtTime.BackColor = System.Drawing.SystemColors.GrayText;
-            this.txtTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtTime.Font = new System.Drawing.Font("Joystix", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTime.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.txtTime.Location = new System.Drawing.Point(547, 173);
-            this.txtTime.Margin = new System.Windows.Forms.Padding(0);
-            this.txtTime.MaxLength = 5;
-            this.txtTime.Name = "txtTime";
-            this.txtTime.Size = new System.Drawing.Size(120, 33);
-            this.txtTime.TabIndex = 7;
-            this.txtTime.Text = "00:00";
-            this.txtTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtTime.TextChanged += new System.EventHandler(this.txtTime_TextChanged);
-            // 
-            // txtNotify
-            // 
-            this.txtNotify.BackColor = System.Drawing.SystemColors.GrayText;
-            this.txtNotify.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtNotify.Font = new System.Drawing.Font("Joystix", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNotify.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.txtNotify.Location = new System.Drawing.Point(581, 284);
-            this.txtNotify.Margin = new System.Windows.Forms.Padding(0);
-            this.txtNotify.MaxLength = 2;
-            this.txtNotify.Name = "txtNotify";
-            this.txtNotify.Size = new System.Drawing.Size(56, 33);
-            this.txtNotify.TabIndex = 8;
-            this.txtNotify.Text = "00";
-            this.txtNotify.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // txtRepeat
-            // 
-            this.txtRepeat.BackColor = System.Drawing.SystemColors.GrayText;
-            this.txtRepeat.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtRepeat.Font = new System.Drawing.Font("Joystix", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRepeat.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.txtRepeat.Location = new System.Drawing.Point(581, 405);
-            this.txtRepeat.Margin = new System.Windows.Forms.Padding(0);
-            this.txtRepeat.MaxLength = 2;
-            this.txtRepeat.Name = "txtRepeat";
-            this.txtRepeat.Size = new System.Drawing.Size(56, 33);
-            this.txtRepeat.TabIndex = 9;
-            this.txtRepeat.Text = "0";
-            this.txtRepeat.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtRepeat.TextChanged += new System.EventHandler(this.txtRepeat_TextChanged);
-            // 
             // rdbtnAM
             // 
+            this.rdbtnAM.Appearance = System.Windows.Forms.Appearance.Button;
             this.rdbtnAM.AutoSize = true;
+            this.rdbtnAM.BackgroundImage = global::GameNotifier.Properties.Resources.btnBackgroundV1;
+            this.rdbtnAM.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.rdbtnAM.Checked = true;
             this.rdbtnAM.Font = new System.Drawing.Font("Joystix", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rdbtnAM.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.rdbtnAM.Location = new System.Drawing.Point(744, 161);
+            this.rdbtnAM.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.rdbtnAM.Location = new System.Drawing.Point(6, 13);
             this.rdbtnAM.Name = "rdbtnAM";
-            this.rdbtnAM.Size = new System.Drawing.Size(59, 24);
+            this.rdbtnAM.Size = new System.Drawing.Size(51, 30);
             this.rdbtnAM.TabIndex = 11;
             this.rdbtnAM.TabStop = true;
             this.rdbtnAM.Text = "AM";
             this.rdbtnAM.UseVisualStyleBackColor = true;
+            this.rdbtnAM.CheckedChanged += new System.EventHandler(this.rdbtnAM_CheckedChanged);
             // 
             // rdbtnPM
             // 
+            this.rdbtnPM.Appearance = System.Windows.Forms.Appearance.Button;
             this.rdbtnPM.AutoSize = true;
+            this.rdbtnPM.BackgroundImage = global::GameNotifier.Properties.Resources.btnBackgroundV1;
             this.rdbtnPM.Font = new System.Drawing.Font("Joystix", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbtnPM.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.rdbtnPM.Location = new System.Drawing.Point(744, 191);
+            this.rdbtnPM.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.rdbtnPM.Location = new System.Drawing.Point(6, 49);
             this.rdbtnPM.Name = "rdbtnPM";
-            this.rdbtnPM.Size = new System.Drawing.Size(57, 24);
+            this.rdbtnPM.Size = new System.Drawing.Size(49, 30);
             this.rdbtnPM.TabIndex = 12;
-            this.rdbtnPM.TabStop = true;
             this.rdbtnPM.Text = "PM";
             this.rdbtnPM.UseVisualStyleBackColor = true;
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
+            this.rdbtnPM.CheckedChanged += new System.EventHandler(this.rdbtnPM_CheckedChanged);
             // 
             // txtSearch
             // 
@@ -272,7 +217,7 @@
             "Ect"});
             this.lsbGameItems.Location = new System.Drawing.Point(22, 253);
             this.lsbGameItems.Name = "lsbGameItems";
-            this.lsbGameItems.Size = new System.Drawing.Size(271, 255);
+            this.lsbGameItems.Size = new System.Drawing.Size(271, 315);
             this.lsbGameItems.TabIndex = 15;
             // 
             // lsbTimers
@@ -291,7 +236,7 @@
             "Timers"});
             this.lsbTimers.Location = new System.Drawing.Point(917, 80);
             this.lsbTimers.Name = "lsbTimers";
-            this.lsbTimers.Size = new System.Drawing.Size(320, 330);
+            this.lsbTimers.Size = new System.Drawing.Size(320, 285);
             this.lsbTimers.TabIndex = 16;
             // 
             // richTextBox1
@@ -300,7 +245,7 @@
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox1.Font = new System.Drawing.Font("Joystix", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.richTextBox1.Location = new System.Drawing.Point(917, 416);
+            this.richTextBox1.Location = new System.Drawing.Point(917, 371);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(320, 203);
             this.richTextBox1.TabIndex = 17;
@@ -327,7 +272,7 @@
             this.btnSelect.Font = new System.Drawing.Font("Joystix", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSelect.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.btnSelect.Image = global::GameNotifier.Properties.Resources.btnBackgroundV1;
-            this.btnSelect.Location = new System.Drawing.Point(69, 526);
+            this.btnSelect.Location = new System.Drawing.Point(66, 585);
             this.btnSelect.Margin = new System.Windows.Forms.Padding(0);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(170, 37);
@@ -347,7 +292,6 @@
             this.lblFind.TabIndex = 20;
             this.lblFind.Text = "Search For\r\nNotifiers";
             this.lblFind.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblFind.Click += new System.EventHandler(this.lblFind_Click);
             // 
             // lblActive
             // 
@@ -373,19 +317,219 @@
             this.lblCustomize.TabIndex = 22;
             this.lblCustomize.Text = "Customize";
             // 
-            // numUDTime
+            // lblColon
             // 
-            this.numUDTime.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.numUDTime.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.numUDTime.Cursor = System.Windows.Forms.Cursors.Default;
-            this.numUDTime.Font = new System.Drawing.Font("Joystix", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numUDTime.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.numUDTime.Location = new System.Drawing.Point(517, 223);
-            this.numUDTime.Name = "numUDTime";
-            this.numUDTime.Size = new System.Drawing.Size(73, 36);
-            this.numUDTime.TabIndex = 10;
-            this.numUDTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUDTime.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.lblColon.AutoSize = true;
+            this.lblColon.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblColon.Font = new System.Drawing.Font("Joystix", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblColon.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblColon.Image = global::GameNotifier.Properties.Resources.btnBackgroundV1;
+            this.lblColon.Location = new System.Drawing.Point(602, 168);
+            this.lblColon.Margin = new System.Windows.Forms.Padding(3, 3, 3, 4);
+            this.lblColon.MinimumSize = new System.Drawing.Size(0, 1);
+            this.lblColon.Name = "lblColon";
+            this.lblColon.Size = new System.Drawing.Size(25, 34);
+            this.lblColon.TabIndex = 23;
+            this.lblColon.Text = ":";
+            // 
+            // nudNotifyMin
+            // 
+            this.nudNotifyMin.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.nudNotifyMin.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.nudNotifyMin.Cursor = System.Windows.Forms.Cursors.Default;
+            this.nudNotifyMin.Font = new System.Drawing.Font("Joystix", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudNotifyMin.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.nudNotifyMin.Location = new System.Drawing.Point(538, 285);
+            this.nudNotifyMin.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudNotifyMin.Name = "nudNotifyMin";
+            this.nudNotifyMin.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.nudNotifyMin.Size = new System.Drawing.Size(108, 36);
+            this.nudNotifyMin.TabIndex = 25;
+            this.nudNotifyMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nudNotifyMin.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.nudNotifyMin.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // nudRepeat
+            // 
+            this.nudRepeat.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.nudRepeat.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.nudRepeat.Cursor = System.Windows.Forms.Cursors.Default;
+            this.nudRepeat.Font = new System.Drawing.Font("Joystix", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudRepeat.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.nudRepeat.Location = new System.Drawing.Point(538, 401);
+            this.nudRepeat.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.nudRepeat.Name = "nudRepeat";
+            this.nudRepeat.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.nudRepeat.Size = new System.Drawing.Size(108, 36);
+            this.nudRepeat.TabIndex = 26;
+            this.nudRepeat.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nudRepeat.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.nudRepeat.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // dudTimeHr
+            // 
+            this.dudTimeHr.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dudTimeHr.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dudTimeHr.Font = new System.Drawing.Font("Joystix", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dudTimeHr.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.dudTimeHr.Items.Add("12");
+            this.dudTimeHr.Items.Add("11");
+            this.dudTimeHr.Items.Add("10");
+            this.dudTimeHr.Items.Add("09");
+            this.dudTimeHr.Items.Add("08");
+            this.dudTimeHr.Items.Add("07");
+            this.dudTimeHr.Items.Add("06");
+            this.dudTimeHr.Items.Add("05");
+            this.dudTimeHr.Items.Add("04");
+            this.dudTimeHr.Items.Add("03");
+            this.dudTimeHr.Items.Add("02");
+            this.dudTimeHr.Items.Add("01");
+            this.dudTimeHr.Location = new System.Drawing.Point(538, 168);
+            this.dudTimeHr.Name = "dudTimeHr";
+            this.dudTimeHr.ReadOnly = true;
+            this.dudTimeHr.Size = new System.Drawing.Size(69, 36);
+            this.dudTimeHr.TabIndex = 27;
+            this.dudTimeHr.Text = "12";
+            this.dudTimeHr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dudTimeHr.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.dudTimeHr.SelectedItemChanged += new System.EventHandler(this.dudTimeHr_SelectedItemChanged);
+            // 
+            // dudTimeMin
+            // 
+            this.dudTimeMin.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dudTimeMin.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dudTimeMin.Font = new System.Drawing.Font("Joystix", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dudTimeMin.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.dudTimeMin.Items.Add("59");
+            this.dudTimeMin.Items.Add("58");
+            this.dudTimeMin.Items.Add("57");
+            this.dudTimeMin.Items.Add("56");
+            this.dudTimeMin.Items.Add("55");
+            this.dudTimeMin.Items.Add("54");
+            this.dudTimeMin.Items.Add("53");
+            this.dudTimeMin.Items.Add("52");
+            this.dudTimeMin.Items.Add("51");
+            this.dudTimeMin.Items.Add("50");
+            this.dudTimeMin.Items.Add("49");
+            this.dudTimeMin.Items.Add("48");
+            this.dudTimeMin.Items.Add("47");
+            this.dudTimeMin.Items.Add("46");
+            this.dudTimeMin.Items.Add("45");
+            this.dudTimeMin.Items.Add("44");
+            this.dudTimeMin.Items.Add("43");
+            this.dudTimeMin.Items.Add("42");
+            this.dudTimeMin.Items.Add("41");
+            this.dudTimeMin.Items.Add("40");
+            this.dudTimeMin.Items.Add("39");
+            this.dudTimeMin.Items.Add("38");
+            this.dudTimeMin.Items.Add("37");
+            this.dudTimeMin.Items.Add("36");
+            this.dudTimeMin.Items.Add("35");
+            this.dudTimeMin.Items.Add("34");
+            this.dudTimeMin.Items.Add("33");
+            this.dudTimeMin.Items.Add("32");
+            this.dudTimeMin.Items.Add("31");
+            this.dudTimeMin.Items.Add("30");
+            this.dudTimeMin.Items.Add("29");
+            this.dudTimeMin.Items.Add("28");
+            this.dudTimeMin.Items.Add("27");
+            this.dudTimeMin.Items.Add("26");
+            this.dudTimeMin.Items.Add("25");
+            this.dudTimeMin.Items.Add("24");
+            this.dudTimeMin.Items.Add("23");
+            this.dudTimeMin.Items.Add("22");
+            this.dudTimeMin.Items.Add("21");
+            this.dudTimeMin.Items.Add("20");
+            this.dudTimeMin.Items.Add("19");
+            this.dudTimeMin.Items.Add("18");
+            this.dudTimeMin.Items.Add("17");
+            this.dudTimeMin.Items.Add("16");
+            this.dudTimeMin.Items.Add("15");
+            this.dudTimeMin.Items.Add("14");
+            this.dudTimeMin.Items.Add("13");
+            this.dudTimeMin.Items.Add("12");
+            this.dudTimeMin.Items.Add("11");
+            this.dudTimeMin.Items.Add("10");
+            this.dudTimeMin.Items.Add("09");
+            this.dudTimeMin.Items.Add("08");
+            this.dudTimeMin.Items.Add("07");
+            this.dudTimeMin.Items.Add("06");
+            this.dudTimeMin.Items.Add("05");
+            this.dudTimeMin.Items.Add("04");
+            this.dudTimeMin.Items.Add("03");
+            this.dudTimeMin.Items.Add("02");
+            this.dudTimeMin.Items.Add("01");
+            this.dudTimeMin.Items.Add("00");
+            this.dudTimeMin.Location = new System.Drawing.Point(618, 168);
+            this.dudTimeMin.Name = "dudTimeMin";
+            this.dudTimeMin.ReadOnly = true;
+            this.dudTimeMin.Size = new System.Drawing.Size(69, 36);
+            this.dudTimeMin.TabIndex = 28;
+            this.dudTimeMin.Text = "59";
+            this.dudTimeMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.dudTimeMin.SelectedItemChanged += new System.EventHandler(this.dudTimeMin_SelectedItemChanged);
+            // 
+            // grpbAmPm
+            // 
+            this.grpbAmPm.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.grpbAmPm.BackgroundImage = global::GameNotifier.Properties.Resources.btnBackgroundV1;
+            this.grpbAmPm.Controls.Add(this.rdbtnAM);
+            this.grpbAmPm.Controls.Add(this.rdbtnPM);
+            this.grpbAmPm.Location = new System.Drawing.Point(725, 145);
+            this.grpbAmPm.Name = "grpbAmPm";
+            this.grpbAmPm.Size = new System.Drawing.Size(63, 85);
+            this.grpbAmPm.TabIndex = 29;
+            this.grpbAmPm.TabStop = false;
+            // 
+            // chbAlwaysRepeat
+            // 
+            this.chbAlwaysRepeat.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chbAlwaysRepeat.AutoSize = true;
+            this.chbAlwaysRepeat.BackgroundImage = global::GameNotifier.Properties.Resources.btnBackgroundV1;
+            this.chbAlwaysRepeat.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.chbAlwaysRepeat.FlatAppearance.CheckedBackColor = System.Drawing.Color.Black;
+            this.chbAlwaysRepeat.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.chbAlwaysRepeat.Font = new System.Drawing.Font("Joystix", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chbAlwaysRepeat.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.chbAlwaysRepeat.Location = new System.Drawing.Point(538, 453);
+            this.chbAlwaysRepeat.Name = "chbAlwaysRepeat";
+            this.chbAlwaysRepeat.Size = new System.Drawing.Size(108, 30);
+            this.chbAlwaysRepeat.TabIndex = 30;
+            this.chbAlwaysRepeat.Text = "Always";
+            this.chbAlwaysRepeat.UseVisualStyleBackColor = true;
+            this.chbAlwaysRepeat.CheckedChanged += new System.EventHandler(this.chbAlwaysRepeat_CheckedChanged);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnDelete.Enabled = false;
+            this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDelete.Font = new System.Drawing.Font("Joystix", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDelete.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.btnDelete.Image = global::GameNotifier.Properties.Resources.btnBackgroundV1;
+            this.btnDelete.Location = new System.Drawing.Point(995, 585);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(0);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(170, 37);
+            this.btnDelete.TabIndex = 31;
+            this.btnDelete.Text = "DELETE";
+            this.btnDelete.UseVisualStyleBackColor = true;
             // 
             // frMain
             // 
@@ -395,6 +539,13 @@
             this.BackgroundImage = global::GameNotifier.Properties.Resources.btnBackgroundV1;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1249, 631);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.chbAlwaysRepeat);
+            this.Controls.Add(this.grpbAmPm);
+            this.Controls.Add(this.dudTimeMin);
+            this.Controls.Add(this.dudTimeHr);
+            this.Controls.Add(this.nudRepeat);
+            this.Controls.Add(this.nudNotifyMin);
             this.Controls.Add(this.lblCustomize);
             this.Controls.Add(this.lblActive);
             this.Controls.Add(this.lblFind);
@@ -405,24 +556,21 @@
             this.Controls.Add(this.lsbGameItems);
             this.Controls.Add(this.lsbGames);
             this.Controls.Add(this.txtSearch);
-            this.Controls.Add(this.rdbtnPM);
-            this.Controls.Add(this.rdbtnAM);
-            this.Controls.Add(this.numUDTime);
-            this.Controls.Add(this.txtRepeat);
-            this.Controls.Add(this.txtNotify);
-            this.Controls.Add(this.txtTime);
             this.Controls.Add(this.lbRepeatSub);
             this.Controls.Add(this.lbNotifySub);
-            this.Controls.Add(this.lbRepeat);
+            this.Controls.Add(this.lblRepeat);
             this.Controls.Add(this.lbNotify);
             this.Controls.Add(this.lbTime);
-            this.Controls.Add(this.rdbtnAlwaysRepeat);
             this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.lblColon);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Name = "frMain";
             this.Text = "Game Notifier";
-            ((System.ComponentModel.ISupportInitialize)(this.numUDTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudNotifyMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudRepeat)).EndInit();
+            this.grpbAmPm.ResumeLayout(false);
+            this.grpbAmPm.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -431,18 +579,12 @@
         #endregion
 
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.RadioButton rdbtnAlwaysRepeat;
         private System.Windows.Forms.Label lbTime;
         private System.Windows.Forms.Label lbNotify;
-        private System.Windows.Forms.Label lbRepeat;
         private System.Windows.Forms.Label lbNotifySub;
         private System.Windows.Forms.Label lbRepeatSub;
-        private System.Windows.Forms.TextBox txtTime;
-        private System.Windows.Forms.TextBox txtNotify;
-        private System.Windows.Forms.TextBox txtRepeat;
         private System.Windows.Forms.RadioButton rdbtnAM;
         private System.Windows.Forms.RadioButton rdbtnPM;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.ListBox lsbGames;
         private System.Windows.Forms.ListBox lsbGameItems;
@@ -453,7 +595,15 @@
         private System.Windows.Forms.Label lblFind;
         private System.Windows.Forms.Label lblActive;
         private System.Windows.Forms.Label lblCustomize;
-        private System.Windows.Forms.NumericUpDown numUDTime;
+        private System.Windows.Forms.Label lblColon;
+        private System.Windows.Forms.NumericUpDown nudNotifyMin;
+        private System.Windows.Forms.NumericUpDown nudRepeat;
+        private System.Windows.Forms.DomainUpDown dudTimeHr;
+        private System.Windows.Forms.DomainUpDown dudTimeMin;
+        public System.Windows.Forms.Label lblRepeat;
+        private System.Windows.Forms.GroupBox grpbAmPm;
+        private System.Windows.Forms.CheckBox chbAlwaysRepeat;
+        private System.Windows.Forms.Button btnDelete;
     }
 }
 

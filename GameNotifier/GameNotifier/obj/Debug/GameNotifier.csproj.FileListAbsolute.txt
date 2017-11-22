@@ -7,12 +7,6 @@ G:\School\GameNotifier\GameNotifier\GameNotifier\obj\Debug\GameNotifier.Properti
 G:\School\GameNotifier\GameNotifier\GameNotifier\obj\Debug\GameNotifier.csproj.GenerateResource.Cache
 G:\School\GameNotifier\GameNotifier\GameNotifier\obj\Debug\GameNotifier.exe
 G:\School\GameNotifier\GameNotifier\GameNotifier\obj\Debug\GameNotifier.pdb
-C:\Users\Thomas\Documents\HCI\GameNotifier\GameNotifier\GameNotifier\bin\Debug\GameNotifier.exe.config
-C:\Users\Thomas\Documents\HCI\GameNotifier\GameNotifier\GameNotifier\obj\Debug\GameNotifier.exe
-C:\Users\Thomas\Documents\HCI\GameNotifier\GameNotifier\GameNotifier\obj\Debug\GameNotifier.pdb
-C:\Users\Thomas\Documents\HCI\GameNotifier\GameNotifier\GameNotifier\bin\Debug\GameNotifier.exe
-C:\Users\Thomas\Documents\HCI\GameNotifier\GameNotifier\GameNotifier\bin\Debug\GameNotifier.pdb
-C:\Users\Thomas\Documents\HCI\GameNotifier\GameNotifier\GameNotifier\obj\Debug\GameNotifier.csprojResolveAssemblyReference.cache
-C:\Users\Thomas\Documents\HCI\GameNotifier\GameNotifier\GameNotifier\obj\Debug\GameNotifier.frMain.resources
-C:\Users\Thomas\Documents\HCI\GameNotifier\GameNotifier\GameNotifier\obj\Debug\GameNotifier.Properties.Resources.resources
-C:\Users\Thomas\Documents\HCI\GameNotifier\GameNotifier\GameNotifier\obj\Debug\GameNotifier.csproj.GenerateResource.Cache
+G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\bin\Debug\GameNotifier.exe.config
+G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\obj\Debug\GameNotifier.exe
+G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\obj\Debug\GameNotifier.pdb
