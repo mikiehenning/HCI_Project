@@ -18,6 +18,7 @@ namespace GameNotifier
         //All var set from the UI
         private int timeHr , timeMin;
         private Boolean repeatAlways = true;
+        private Timer selectedTimer;
 
         //All var from the database
 
