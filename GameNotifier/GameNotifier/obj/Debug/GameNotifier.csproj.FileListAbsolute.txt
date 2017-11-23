@@ -10,3 +10,9 @@ G:\School\GameNotifier\GameNotifier\GameNotifier\obj\Debug\GameNotifier.pdb
 G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\bin\Debug\GameNotifier.exe.config
 G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\obj\Debug\GameNotifier.exe
 G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\obj\Debug\GameNotifier.pdb
+G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\bin\Debug\GameNotifier.exe
+G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\bin\Debug\GameNotifier.pdb
+G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\obj\Debug\GameNotifier.csprojResolveAssemblyReference.cache
+G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\obj\Debug\GameNotifier.frMain.resources
+G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\obj\Debug\GameNotifier.Properties.Resources.resources
+G:\School\HCI\Repository\hciproject\HCI_Project\GameNotifier\GameNotifier\obj\Debug\GameNotifier.csproj.GenerateResource.Cache

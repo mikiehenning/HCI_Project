@@ -83,15 +83,17 @@ namespace GameNotifier
         //will get all information on a timer as a string
         public String getTimerInfo()
         {
-            info += "Name: " + name +
-                "\nTime: " + timeHr + " : " + timeMin + " ";
+            info = "";
+
+            info += "\nName: " + name +
+                "\n\nTime: " + timeHr + " : " + timeMin + " ";
 
             if (ampm == true) info += "am";
             else info += "pm";
 
-            info += "\nNotify " + notify.ToString() +"min before";
-            if (repeatIndef == true) info += "\nRepeat: Always";
-            else info += "\nRepeat: " + repeat.ToString() + " Times";
+            info += "\n\nNotify: " + notify.ToString() +" min before";
+            if (repeatIndef == true) info += "\n\nRepeat: Always";
+            else info += "\n\nRepeat: " + repeat.ToString() + " Times";
 
             return info;
         }

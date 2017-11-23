@@ -40,7 +40,7 @@
             this.lsbGames = new System.Windows.Forms.ListBox();
             this.lsbGameItems = new System.Windows.Forms.ListBox();
             this.lsbTimers = new System.Windows.Forms.ListBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtxtTimerInfo = new System.Windows.Forms.RichTextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.btnSelect = new System.Windows.Forms.Button();
             this.lblFind = new System.Windows.Forms.Label();
@@ -74,6 +74,7 @@
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "ADD";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // lbTime
             // 
@@ -192,13 +193,11 @@
             this.lsbGames.FormattingEnabled = true;
             this.lsbGames.HorizontalScrollbar = true;
             this.lsbGames.ItemHeight = 15;
-            this.lsbGames.Items.AddRange(new object[] {
-            "World of Warcaft",
-            "Destiny"});
             this.lsbGames.Location = new System.Drawing.Point(22, 127);
             this.lsbGames.Name = "lsbGames";
             this.lsbGames.Size = new System.Drawing.Size(271, 120);
             this.lsbGames.TabIndex = 14;
+            this.lsbGames.SelectedIndexChanged += new System.EventHandler(this.lsbGames_SelectedIndexChanged);
             // 
             // lsbGameItems
             // 
@@ -209,16 +208,11 @@
             this.lsbGameItems.FormattingEnabled = true;
             this.lsbGameItems.HorizontalScrollbar = true;
             this.lsbGameItems.ItemHeight = 15;
-            this.lsbGameItems.Items.AddRange(new object[] {
-            "These",
-            "Will",
-            "Be",
-            "Bosses",
-            "Ect"});
             this.lsbGameItems.Location = new System.Drawing.Point(22, 253);
             this.lsbGameItems.Name = "lsbGameItems";
             this.lsbGameItems.Size = new System.Drawing.Size(271, 315);
             this.lsbGameItems.TabIndex = 15;
+            this.lsbGameItems.SelectedIndexChanged += new System.EventHandler(this.lsbGameItems_SelectedIndexChanged);
             // 
             // lsbTimers
             // 
@@ -229,27 +223,23 @@
             this.lsbTimers.FormattingEnabled = true;
             this.lsbTimers.HorizontalScrollbar = true;
             this.lsbTimers.ItemHeight = 15;
-            this.lsbTimers.Items.AddRange(new object[] {
-            "These",
-            "Will",
-            "Be",
-            "Timers"});
             this.lsbTimers.Location = new System.Drawing.Point(917, 80);
             this.lsbTimers.Name = "lsbTimers";
             this.lsbTimers.Size = new System.Drawing.Size(320, 285);
             this.lsbTimers.TabIndex = 16;
+            this.lsbTimers.SelectedIndexChanged += new System.EventHandler(this.lsbTimers_SelectedIndexChanged);
             // 
-            // richTextBox1
+            // rtxtTimerInfo
             // 
-            this.richTextBox1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Font = new System.Drawing.Font("Joystix", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.richTextBox1.Location = new System.Drawing.Point(917, 371);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(320, 203);
-            this.richTextBox1.TabIndex = 17;
-            this.richTextBox1.Text = "Here will be timer details";
+            this.rtxtTimerInfo.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.rtxtTimerInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtxtTimerInfo.Font = new System.Drawing.Font("Joystix", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxtTimerInfo.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.rtxtTimerInfo.Location = new System.Drawing.Point(917, 371);
+            this.rtxtTimerInfo.Name = "rtxtTimerInfo";
+            this.rtxtTimerInfo.Size = new System.Drawing.Size(320, 203);
+            this.rtxtTimerInfo.TabIndex = 17;
+            this.rtxtTimerInfo.Text = "";
             // 
             // txtName
             // 
@@ -279,6 +269,7 @@
             this.btnSelect.TabIndex = 19;
             this.btnSelect.Text = "SELECT";
             this.btnSelect.UseVisualStyleBackColor = true;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // lblFind
             // 
@@ -408,7 +399,6 @@
             this.dudTimeHr.Text = "12";
             this.dudTimeHr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dudTimeHr.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
-            this.dudTimeHr.SelectedItemChanged += new System.EventHandler(this.dudTimeHr_SelectedItemChanged);
             // 
             // dudTimeMin
             // 
@@ -483,7 +473,6 @@
             this.dudTimeMin.TabIndex = 28;
             this.dudTimeMin.Text = "59";
             this.dudTimeMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.dudTimeMin.SelectedItemChanged += new System.EventHandler(this.dudTimeMin_SelectedItemChanged);
             // 
             // grpbAmPm
             // 
@@ -530,6 +519,7 @@
             this.btnDelete.TabIndex = 31;
             this.btnDelete.Text = "DELETE";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // frMain
             // 
@@ -551,7 +541,7 @@
             this.Controls.Add(this.lblFind);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.txtName);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.rtxtTimerInfo);
             this.Controls.Add(this.lsbTimers);
             this.Controls.Add(this.lsbGameItems);
             this.Controls.Add(this.lsbGames);
@@ -589,7 +579,7 @@
         private System.Windows.Forms.ListBox lsbGames;
         private System.Windows.Forms.ListBox lsbGameItems;
         private System.Windows.Forms.ListBox lsbTimers;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtxtTimerInfo;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.Label lblFind;

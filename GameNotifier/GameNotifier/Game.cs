@@ -40,5 +40,14 @@ namespace GameNotifier
             return timers;
         }
 
+        public String getName()
+        {
+            return name;
+        }
+
+        public void removeTimer(Timer timer)
+        {
+            timers.Remove(timer);
+        }
     }
 }
