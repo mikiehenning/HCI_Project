@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,47 @@ namespace GameNotifier
         {
             InitializeComponent();
 
+            //set up dataconnection and open it
+            SqlConnection conn = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=HCI_Project;Integrated Security=True");
+            conn.Open();
+
+
+            DataSet GameDs = new DataSet();
+            SqlDataAdapter GameAdaptor = new SqlDataAdapter(
+                "Select title from Game", conn);
+            GameAdaptor.Fill(GameDs);
+            //set the listbox datasource to the game table and display titles
+            this.lsbGames.DataSource = GameDs.Tables[0];
+            this.lsbGames.DisplayMember = "title";
+
+            //getting bosses
+            SqlCommand SelectGIDCommand = new SqlCommand("SELECT * FROM Game", conn);
+            SqlDataReader myreader;
+           
+            myreader = SelectGIDCommand.ExecuteReader();
+
+            List<String> lstGamesID = new List<String>();
+            List<Game> lstGameObjects = new List<Game>();
+            List<Timer> lstTimerObjects = new List<Timer>();
+            while (myreader.Read())
+            {
+                lstGamesID.Add(myreader[0].ToString());
+                lstGameObjects.Add(new Game(myreader[1].ToString()));
+              
+
+
+            }
+
+            foreach (String ID in lstGamesID){
+                int IDnum = Int32.Parse(ID);
+
+                SqlCommand selectBossWithID = new SqlCommand("Select * from BOss where game = " + ID, conn);
+
+
+            
+            }
+            //conn.Close();
+
             userTimers = new Game("User Games");
 
             //Test Code, sample timers and games
@@ -38,8 +80,8 @@ namespace GameNotifier
             gameList.Add(testGame1);
             gameList.Add(testGame2);
 
-            lsbGames.Items.Add(testGame1.getName());
-            lsbGames.Items.Add(testGame2.getName());
+            //lsbGames.Items.Add(testGame1.getName());
+           // lsbGames.Items.Add(testGame2.getName());
 
             Timer timer1 = new Timer("timer1");
             Timer timer2 = new Timer("timer2");
