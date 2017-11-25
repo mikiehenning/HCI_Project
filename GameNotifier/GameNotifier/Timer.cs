@@ -12,8 +12,8 @@ namespace GameNotifier
             name, //holds a timer name
             timeHr, timeMin, //holds the time
             info;
-        private int notify, repeat;
-        private Boolean repeatIndef, ampm; //will use repeat val if false. ampm: am if true, pm if false
+        private int notify, repeat, alarmTimeHr, alarmTimeMin;
+        private Boolean repeatIndef, ampm, notified = false; //will use repeat val if false. ampm: am if true, pm if false
 
         public Timer(String name)
         {
@@ -31,6 +31,7 @@ namespace GameNotifier
             this.timeHr = timeHr;
             this.timeMin = timeMin;
             this.ampm = ampm;
+            setAlarmTime();
         }
 
         public void setNotify(int notify)
@@ -42,6 +43,11 @@ namespace GameNotifier
         {
             this.repeat = repeat;
             this.repeatIndef = repeatIndef;
+        }
+
+        public void setNotified(Boolean notified)
+        {
+            this.notified = notified;
         }
 
         //getters
@@ -60,6 +66,16 @@ namespace GameNotifier
             return timeMin;
         }
 
+        public int getAlarmTimeHr()
+        {
+            return alarmTimeHr;
+        }
+
+        public int getAlarmTimeMin()
+        {
+            return alarmTimeMin;
+        }
+
         public Boolean getAMPM()
         {
             return ampm;
@@ -73,6 +89,11 @@ namespace GameNotifier
         public int getRepeat()
         {
             return repeat;
+        }
+
+        public Boolean getNotified()
+        {
+            return notified;
         }
 
         public Boolean repeatAlways()
@@ -97,6 +118,21 @@ namespace GameNotifier
 
             return info;
         }
-    }
 
+        private void setAlarmTime()
+        {
+            if (Int32.Parse(timeMin) - notify < 0)
+            {
+                int temp = Int32.Parse(timeMin) - notify;
+                this.alarmTimeMin = 60 + temp;
+                this.alarmTimeHr = Int32.Parse(timeHr) - 1;
+            }
+            else
+            {
+                this.alarmTimeMin = Int32.Parse(timeMin) - notify;
+                this.alarmTimeHr = Int32.Parse(timeHr);
+            }
+        }
+
+    }
 }

@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frMain));
             this.btnAdd = new System.Windows.Forms.Button();
             this.lbTime = new System.Windows.Forms.Label();
             this.lbNotify = new System.Windows.Forms.Label();
@@ -54,6 +56,8 @@
             this.grpbAmPm = new System.Windows.Forms.GroupBox();
             this.chbAlwaysRepeat = new System.Windows.Forms.CheckBox();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.notTimer = new System.Windows.Forms.NotifyIcon(this.components);
+            this.tMin = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.nudNotifyMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudRepeat)).BeginInit();
             this.grpbAmPm.SuspendLayout();
@@ -521,6 +525,20 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // notTimer
+            // 
+            this.notTimer.BalloonTipText = "This is a test";
+            this.notTimer.BalloonTipTitle = "Test";
+            this.notTimer.Icon = ((System.Drawing.Icon)(resources.GetObject("notTimer.Icon")));
+            this.notTimer.Text = "SystemTray";
+            this.notTimer.Visible = true;
+            // 
+            // tMin
+            // 
+            this.tMin.Enabled = true;
+            this.tMin.Interval = 1000;
+            this.tMin.Tick += new System.EventHandler(this.tMin_Tick);
+            // 
             // frMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -555,6 +573,7 @@
             this.Controls.Add(this.lblColon);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frMain";
             this.Text = "Game Notifier";
             ((System.ComponentModel.ISupportInitialize)(this.nudNotifyMin)).EndInit();
@@ -594,6 +613,8 @@
         private System.Windows.Forms.GroupBox grpbAmPm;
         private System.Windows.Forms.CheckBox chbAlwaysRepeat;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.NotifyIcon notTimer;
+        private System.Windows.Forms.Timer tMin;
     }
 }
 

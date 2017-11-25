@@ -12,6 +12,8 @@ namespace GameNotifier
 {
     public partial class frMain : Form
     {
+        //TODO Handling duplicate names
+
         //All obj from the interface
         //DomainUpDown dudTimeHour, dudTimeMinutes;
 
@@ -22,6 +24,8 @@ namespace GameNotifier
         private Game selectedGame;
         private Game userTimers;
         private List<Game> gameList = new List<Game>();
+        private int currentTimeHr, currentTimeMin;
+        private String currentAMPM;
 
         //All var from the database
 
@@ -31,6 +35,9 @@ namespace GameNotifier
 
             userTimers = new Game("User Games");
 
+            //notification testing
+            notTimer.Visible = true;
+            
             //Test Code, sample timers and games
             Game testGame1 = new Game("game1");
             Game testGame2 = new Game("game2");
@@ -121,6 +128,7 @@ namespace GameNotifier
             }
         }
 
+
         private void lsbGameItems_SelectedIndexChanged(object sender, EventArgs e)
         {
             String selectedTxt = lsbGameItems.GetItemText(lsbGameItems.SelectedItem); //holds the txt of the currently selected item
@@ -131,7 +139,7 @@ namespace GameNotifier
             }                      
         }
 
-
+        //TODO alow the user to edit the selceted timer
         private void lsbTimers_SelectedIndexChanged(object sender, EventArgs e)
         {
             String selectedTxt = lsbTimers.GetItemText(lsbTimers.SelectedItem); //holds the txt of the currently selected item
@@ -149,10 +157,10 @@ namespace GameNotifier
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Timer newTimer = new Timer(txtName.Text);
-            
-            newTimer.setTime(dudTimeHr.SelectedItem.ToString(), dudTimeMin.SelectedItem.ToString(), ampm);
+                      
             newTimer.setNotify((int) nudNotifyMin.Value);
             newTimer.setRepeat((int) nudRepeat.Value, repeatAlways);
+            newTimer.setTime(dudTimeHr.SelectedItem.ToString(), dudTimeMin.SelectedItem.ToString(), ampm);
 
             userTimers.addTimer(newTimer);
             lsbTimers.Items.Add(newTimer.getName());
@@ -194,5 +202,53 @@ namespace GameNotifier
             lsbTimers.Items.Remove(lsbTimers.SelectedItem);
         }
 
+        //TODO make it so popups only show once a min, I've found inconsistancies with this, needs more testing
+        //TODO not sure what will hapen if you ask to be notified over 60min in advance, needs testing
+        //handles notifications
+        private void tMin_Tick(object sender, EventArgs e)
+        {
+            String tempAMPM, cTimeTextHr, cTimeTextMin;
+            foreach (Timer time in userTimers.getAllTimers())
+            {
+                currentTimeHr = DateTime.Now.Hour;
+                currentTimeMin = DateTime.Now.Minute;
+
+                if (time.getAMPM()) tempAMPM = "AM";
+                else tempAMPM = "PM";
+
+                if (currentTimeHr >= 12)
+                {
+                    currentAMPM = "PM";
+                    if (currentTimeHr > 12) currentTimeHr -= 12;
+                }
+                else currentAMPM = "AM";
+
+                cTimeTextHr = currentTimeHr.ToString();
+                cTimeTextMin = currentTimeMin.ToString();
+
+                if (currentTimeHr < 10) cTimeTextHr = "0" + cTimeTextHr;
+                if (currentTimeMin < 10) cTimeTextMin = "0" + cTimeTextMin;
+
+                //test code
+               // rtxtTimerInfo.Text = tempCTimeHr + " : " + currentTimeMin + currentAMPM;
+
+                if((tempAMPM == currentAMPM)
+                    && (time.getAlarmTimeHr() == currentTimeHr)
+                    && (time.getAlarmTimeMin() == currentTimeMin)
+                    && time.getNotified() == false)
+                {
+                    notTimer.BalloonTipTitle = time.getName();
+                    notTimer.BalloonTipText = (time.getName() + " is begining in " + time.getNotify() + "min");
+                    notTimer.ShowBalloonTip(10000);
+
+                    if (!time.repeatAlways())
+                    {
+                        if (time.getRepeat() > 0) time.setRepeat(time.getRepeat() - 1, false);
+                        else time.setNotified(true);
+                    }                   
+                    
+                }
+            }
+        }
     }
 }
