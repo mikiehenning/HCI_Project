@@ -12,7 +12,8 @@ namespace GameNotifier
     {
         private List<Timer> timers = new List<Timer>();
         private String name;
-
+        public int ID;
+        
         public Game(String name)
         {
             this.name = name;
@@ -48,6 +49,11 @@ namespace GameNotifier
         public void removeTimer(Timer timer)
         {
             timers.Remove(timer);
+        }
+
+        public String getGameNameByID(int id)
+        {
+            return this.name;
         }
     }
 }
