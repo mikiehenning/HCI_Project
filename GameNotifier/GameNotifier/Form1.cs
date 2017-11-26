@@ -12,9 +12,7 @@ using System.Windows.Forms;
 namespace GameNotifier
 {
     public partial class frMain : Form
-    {
-        //TODO Handling duplicate names
-
+    { 
         //All obj from the interface
         //DomainUpDown dudTimeHour, dudTimeMinutes;
 
@@ -34,7 +32,9 @@ namespace GameNotifier
         {
             InitializeComponent();
 
-            
+
+            /*
+
             //set up dataconnection and open it, can get this string when connecting database
             //THIS STRING WILL PROBABLY BE DIFFERENT FOR YOU, GET IT FROM THE DATA SOURCE CREATED --ASK THOMAS IF QUESTION
             SqlConnection conn = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=HCI_Project;Integrated Security=True");
@@ -125,11 +125,17 @@ namespace GameNotifier
 
             }
 
+            conn.Close();
+
+            */
+
             //The user is a "game" that has its own timers, the user timers
             userTimers = new Game("User Games");
 
             //notification testing
             notTimer.Visible = true;
+            
+            
             
             //Test Code, sample timers and games
             Game testGame1 = new Game("game1");
@@ -138,8 +144,8 @@ namespace GameNotifier
             gameList.Add(testGame1);
             gameList.Add(testGame2);
 
-            //lsbGames.Items.Add(testGame1.getName());
-           // lsbGames.Items.Add(testGame2.getName());
+            lsbGames.Items.Add(testGame1.getName());
+            lsbGames.Items.Add(testGame2.getName());
 
             
             Timer timer1 = new Timer("timer1");
@@ -157,7 +163,7 @@ namespace GameNotifier
             testGame2.addTimer(timer2);
             testGame2.addTimer(timer3);
             testGame2.addTimer(timer4);
-            */
+            
         }
 
         private void chbAlwaysRepeat_CheckedChanged(object sender, EventArgs e)
@@ -250,6 +256,7 @@ namespace GameNotifier
             {
                 if (timer.getName() == selectedTxt) rtxtTimerInfo.Text = timer.getTimerInfo();
             }
+
         }
 
         private void dudTimeHr_SelectedItemChanged(object sender, EventArgs e)
@@ -280,12 +287,27 @@ namespace GameNotifier
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+
+            foreach(Timer timer in userTimers.getAllTimers())
+            {
+                if (timer.getName().Equals(txtName.Text))
+                {
+                    MessageBox.Show("Timers may not have the same name", "Duplicate Timers",
+                         MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
             Timer newTimer = new Timer(txtName.Text);
                       
+
+            
+
+            newTimer.setTime(dudTimeHr.SelectedItem.ToString(), dudTimeMin.SelectedItem.ToString(), ampm);
             newTimer.setNotify((int) nudNotifyMin.Value);
             newTimer.setRepeat((int) nudRepeat.Value, repeatAlways);
             newTimer.setTime(dudTimeHr.SelectedItem.ToString(), dudTimeMin.SelectedItem.ToString(), ampm);
 
+            newTimer.setRepeat((int)nudRepeat.Value, repeatAlways);
             userTimers.addTimer(newTimer);
             lsbTimers.Items.Add(newTimer.getName());
         }
@@ -328,13 +350,14 @@ namespace GameNotifier
                                      "Confirm Delete",
                                      MessageBoxButtons.YesNo);
 
-            if(confirmResult == DialogResult.Yes)
+            if (confirmResult == DialogResult.Yes)
             {
                 String selectedTxt = lsbTimers.GetItemText(lsbTimers.SelectedItem);
                 Timer timer = userTimers.getTimer(selectedTxt);
 
-            userTimers.removeTimer(timer);
-            lsbTimers.Items.Remove(lsbTimers.SelectedItem);
+                userTimers.removeTimer(timer);
+                lsbTimers.Items.Remove(lsbTimers.SelectedItem);
+            }
         }
 
         //TODO make it so popups only show once a min, I've found inconsistancies with this, needs more testing
@@ -373,7 +396,7 @@ namespace GameNotifier
                     && time.getNotified() == false)
                 {
                     notTimer.BalloonTipTitle = time.getName();
-                    notTimer.BalloonTipText = (time.getName() + " is begining in " + time.getNotify() + "min");
+                    notTimer.BalloonTipText = (time.getName() + " is begining in " + time.getNotify() + " minuntes.");
                     notTimer.ShowBalloonTip(10000);
 
                     if (!time.repeatAlways())
