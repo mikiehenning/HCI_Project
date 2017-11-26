@@ -14,6 +14,7 @@ namespace GameNotifier
             info;
         private int notify, repeat;
         private Boolean repeatIndef, ampm; //will use repeat val if false. ampm: am if true, pm if false
+        public int GID;
 
         public Timer(String name)
         {

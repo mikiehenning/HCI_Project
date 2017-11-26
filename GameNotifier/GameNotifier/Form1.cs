@@ -30,46 +30,102 @@ namespace GameNotifier
         {
             InitializeComponent();
 
-            //set up dataconnection and open it
+            
+            //set up dataconnection and open it, can get this string when connecting database
             SqlConnection conn = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=HCI_Project;Integrated Security=True");
             conn.Open();
 
-
-            DataSet GameDs = new DataSet();
-            SqlDataAdapter GameAdaptor = new SqlDataAdapter(
+            //create data transfer objects
+            DataSet GameDs = new DataSet();  //place to put data
+            SqlDataAdapter GameAdaptor = new SqlDataAdapter(//sends query and fills dataset
                 "Select title from Game", conn);
             GameAdaptor.Fill(GameDs);
             //set the listbox datasource to the game table and display titles
             this.lsbGames.DataSource = GameDs.Tables[0];
-            this.lsbGames.DisplayMember = "title";
+            this.lsbGames.DisplayMember = "title"; //gets column by string name
 
             //getting bosses
-            SqlCommand SelectGIDCommand = new SqlCommand("SELECT * FROM Game", conn);
-            SqlDataReader myreader;
+            SqlCommand SelectGamesCommand = new SqlCommand("SELECT * FROM Game", conn);
+            SqlDataReader GameReader;
            
-            myreader = SelectGIDCommand.ExecuteReader();
+            GameReader = SelectGamesCommand.ExecuteReader();
 
-            List<String> lstGamesID = new List<String>();
-            List<Game> lstGameObjects = new List<Game>();
-            List<Timer> lstTimerObjects = new List<Timer>();
-            while (myreader.Read())
+            List<Timer> lstTimerObjects = new List<Timer>();  //holds timer objects
+            List<Game> tmpGameObjects = new List<Game>();//tempory GameObjects
+
+            //creates game objects, puts them in list
+            while (GameReader.Read())
             {
-                lstGamesID.Add(myreader[0].ToString());
-                lstGameObjects.Add(new Game(myreader[1].ToString()));
-              
+                String objectName = GameReader[1].ToString();
+                Game gameObject = new Game(objectName);
 
-
+                gameObject.ID = Int32.Parse(GameReader[0].ToString());
+                tmpGameObjects.Add(gameObject);
             }
 
-            foreach (String ID in lstGamesID){
-                int IDnum = Int32.Parse(ID);
-
-                SqlCommand selectBossWithID = new SqlCommand("Select * from BOss where game = " + ID, conn);
+            GameReader.Close(); //close reader
 
 
-            
+            // add timers to games 
+            foreach (Game game in tmpGameObjects)
+            {
+                SqlCommand SelectBosses = new SqlCommand("SELECT * FROM Boss where game = " + game.ID.ToString() + ";", conn);
+                SqlDataReader BossReader;
+
+                BossReader = SelectBosses.ExecuteReader();
+
+                String gameName = game.getName();
+                Game realGame = new Game(gameName);
+                realGame.ID = game.ID;
+
+                while (BossReader.Read())
+                {
+                    String timerName = BossReader[2].ToString();
+                    Timer timer = new Timer(timerName);
+
+                    String goTime = BossReader[3].ToString();
+
+                    String[] timeSplit = goTime.Split(':');
+
+                    bool ampm;
+
+                    String hour = timeSplit[0];
+                    int hourNum = Int32.Parse(hour);
+                    if(hourNum > 12)
+                    {
+                        ampm = false;
+                        hourNum = hourNum - 12;
+                        hour = hourNum.ToString();
+                    } else
+                    {
+                        ampm = true;
+                    }
+
+
+                    timer.setTime(hour, timeSplit[1], ampm);
+                    timer.GID = game.ID;
+
+                    realGame.addTimer(timer);
+
+                    Console.WriteLine(realGame.getTimer(timerName).getName());
+                    Console.WriteLine(timer.getTimeHr() + " this is hour");
+                    Console.WriteLine(timer.GID.ToString());
+
+
+                }
+
+                BossReader.Close();
+
+                List<Timer> gameTimers = realGame.getAllTimers();
+
+                foreach(Timer timer in gameTimers)
+                {
+                    Console.WriteLine(timer.getName() + ":BossName, " + timer.GID.ToString() + ":GID");
+                }
+
+                gameList.Add(realGame);
+
             }
-            //conn.Close();
 
             userTimers = new Game("User Games");
 
@@ -83,6 +139,7 @@ namespace GameNotifier
             //lsbGames.Items.Add(testGame1.getName());
            // lsbGames.Items.Add(testGame2.getName());
 
+            /*
             Timer timer1 = new Timer("timer1");
             Timer timer2 = new Timer("timer2");
             Timer timer3 = new Timer("timer3");
@@ -98,7 +155,7 @@ namespace GameNotifier
             testGame2.addTimer(timer2);
             testGame2.addTimer(timer3);
             testGame2.addTimer(timer4);
-
+            */
         }
 
         private void chbAlwaysRepeat_CheckedChanged(object sender, EventArgs e)
@@ -155,9 +212,12 @@ namespace GameNotifier
 
                     selectedGame = game;
 
+                    int i = 0;
                     foreach(Timer timer in timers)
                     {
+                       Console.WriteLine(i.ToString());
                        lsbGameItems.Items.Add(timer.getName());
+                       i++;
                     }
                 }
             }
@@ -170,6 +230,8 @@ namespace GameNotifier
             foreach(Timer timer in selectedGame.getAllTimers())
             {
                 if (timer.getName() == selectedTxt) selectedTimer = timer;
+
+               
             }                      
         }
 
@@ -188,14 +250,20 @@ namespace GameNotifier
             }
         }
 
+        private void dudTimeHr_SelectedItemChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Timer newTimer = new Timer(txtName.Text);
+
             
+
             newTimer.setTime(dudTimeHr.SelectedItem.ToString(), dudTimeMin.SelectedItem.ToString(), ampm);
             newTimer.setNotify((int) nudNotifyMin.Value);
-            newTimer.setRepeat((int) nudRepeat.Value, repeatAlways);
-
+            newTimer.setRepeat((int)nudRepeat.Value, repeatAlways);
             userTimers.addTimer(newTimer);
             lsbTimers.Items.Add(newTimer.getName());
         }
@@ -224,6 +292,13 @@ namespace GameNotifier
                 chbAlwaysRepeat.Checked = false;
                 nudRepeat.Value = selectedTimer.getRepeat();
             }
+
+            int hour = Int32.Parse(selectedTimer.getTimeHr()); //deal with indexes in domainUpDownBox
+            
+
+
+             dudTimeHr.SelectedIndex = Int32.Parse(selectedTimer.getTimeHr()) - 1;
+             dudTimeMin.SelectedIndex = Int32.Parse(selectedTimer.getTimeMin());
         }
 
         //TODO add a notification asking if it's okay to delete the selected timer
