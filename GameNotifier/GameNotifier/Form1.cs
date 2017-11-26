@@ -32,6 +32,7 @@ namespace GameNotifier
 
             
             //set up dataconnection and open it, can get this string when connecting database
+            //THIS STRING WILL PROBABLY BE DIFFERENT FOR YOU, GET IT FROM THE DATA SOURCE CREATED --ASK THOMAS IF QUESTION
             SqlConnection conn = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=HCI_Project;Integrated Security=True");
             conn.Open();
 
@@ -127,8 +128,10 @@ namespace GameNotifier
 
             }
 
+            //The user is a "game" that has its own timers, the user timers
             userTimers = new Game("User Games");
 
+            /*
             //Test Code, sample timers and games
             Game testGame1 = new Game("game1");
             Game testGame2 = new Game("game2");
@@ -139,7 +142,7 @@ namespace GameNotifier
             //lsbGames.Items.Add(testGame1.getName());
            // lsbGames.Items.Add(testGame2.getName());
 
-            /*
+            
             Timer timer1 = new Timer("timer1");
             Timer timer2 = new Timer("timer2");
             Timer timer3 = new Timer("timer3");
