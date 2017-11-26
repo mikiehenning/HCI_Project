@@ -26,111 +26,125 @@ namespace GameNotifier
         private int currentTimeHr, currentTimeMin;
         private String currentAMPM;
 
+
+        private System.Windows.Forms.ContextMenu contextMenu;
+        private System.ComponentModel.IContainer components1;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.MenuItem menuItem;
+
         //All var from the database
 
         public frMain()
         {
             InitializeComponent();
 
-
+            //tyring to make system tray menu
             /*
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon();
+            this.notifyIcon.Text = "This is the tooltip";
+            this.notifyIcon.ContextMenu = new ContextMenu();
+            this.notifyIcon.ContextMenu.MenuItems.Add(new MenuItem("Quit", new EventHandler(handler_method)));
+            this.notifyIcon.Visible = true;
+            */
+            
+        /*
 
-            //set up dataconnection and open it, can get this string when connecting database
-            //THIS STRING WILL PROBABLY BE DIFFERENT FOR YOU, GET IT FROM THE DATA SOURCE CREATED --ASK THOMAS IF QUESTION
-            SqlConnection conn = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=HCI_Project;Integrated Security=True");
-            conn.Open();
+        //set up dataconnection and open it, can get this string when connecting database
+        //THIS STRING WILL PROBABLY BE DIFFERENT FOR YOU, GET IT FROM THE DATA SOURCE CREATED --ASK THOMAS IF QUESTION
+        SqlConnection conn = new SqlConnection("Data Source=.\\SQLEXPRESS;Initial Catalog=HCI_Project;Integrated Security=True");
+        conn.Open();
 
-            //create data transfer objects
-            DataSet GameDs = new DataSet();  //place to put data
-            SqlDataAdapter GameAdaptor = new SqlDataAdapter(//sends query and fills dataset
-                "Select title from Game", conn);
-            GameAdaptor.Fill(GameDs);
-            //set the listbox datasource to the game table and display titles
-            this.lsbGames.DataSource = GameDs.Tables[0];
-            this.lsbGames.DisplayMember = "title"; //gets column by string name
+        //create data transfer objects
+        DataSet GameDs = new DataSet();  //place to put data
+        SqlDataAdapter GameAdaptor = new SqlDataAdapter(//sends query and fills dataset
+            "Select title from Game", conn);
+        GameAdaptor.Fill(GameDs);
+        //set the listbox datasource to the game table and display titles
+        this.lsbGames.DataSource = GameDs.Tables[0];
+        this.lsbGames.DisplayMember = "title"; //gets column by string name
 
-            //getting bosses
-            SqlCommand SelectGamesCommand = new SqlCommand("SELECT * FROM Game", conn);
-            SqlDataReader GameReader;
-           
-            GameReader = SelectGamesCommand.ExecuteReader();
+        //getting bosses
+        SqlCommand SelectGamesCommand = new SqlCommand("SELECT * FROM Game", conn);
+        SqlDataReader GameReader;
 
-            List<Timer> lstTimerObjects = new List<Timer>();  //holds timer objects
-            List<Game> tmpGameObjects = new List<Game>();//tempory GameObjects
+        GameReader = SelectGamesCommand.ExecuteReader();
 
-            //creates game objects, puts them in list
-            while (GameReader.Read())
+        List<Timer> lstTimerObjects = new List<Timer>();  //holds timer objects
+        List<Game> tmpGameObjects = new List<Game>();//tempory GameObjects
+
+        //creates game objects, puts them in list
+        while (GameReader.Read())
+        {
+            String objectName = GameReader[1].ToString();
+            Game gameObject = new Game(objectName);
+
+            gameObject.ID = Int32.Parse(GameReader[0].ToString());
+            tmpGameObjects.Add(gameObject);
+        }
+
+        GameReader.Close(); //close reader
+
+
+        // add timers to games 
+        foreach (Game game in tmpGameObjects)
+        {
+            SqlCommand SelectBosses = new SqlCommand("SELECT * FROM Boss where game = " + game.ID.ToString() + ";", conn);
+            SqlDataReader BossReader;
+
+            BossReader = SelectBosses.ExecuteReader();
+
+            String gameName = game.getName();
+            Game realGame = new Game(gameName);
+            realGame.ID = game.ID;
+
+            while (BossReader.Read())
             {
-                String objectName = GameReader[1].ToString();
-                Game gameObject = new Game(objectName);
+                String timerName = BossReader[2].ToString();
+                Timer timer = new Timer(timerName);
 
-                gameObject.ID = Int32.Parse(GameReader[0].ToString());
-                tmpGameObjects.Add(gameObject);
-            }
+                String goTime = BossReader[3].ToString();
 
-            GameReader.Close(); //close reader
+                String[] timeSplit = goTime.Split(':');
 
+                bool ampm;
 
-            // add timers to games 
-            foreach (Game game in tmpGameObjects)
-            {
-                SqlCommand SelectBosses = new SqlCommand("SELECT * FROM Boss where game = " + game.ID.ToString() + ";", conn);
-                SqlDataReader BossReader;
-
-                BossReader = SelectBosses.ExecuteReader();
-
-                String gameName = game.getName();
-                Game realGame = new Game(gameName);
-                realGame.ID = game.ID;
-
-                while (BossReader.Read())
+                String hour = timeSplit[0];
+                int hourNum = Int32.Parse(hour);
+                if(hourNum > 12)
                 {
-                    String timerName = BossReader[2].ToString();
-                    Timer timer = new Timer(timerName);
-
-                    String goTime = BossReader[3].ToString();
-
-                    String[] timeSplit = goTime.Split(':');
-
-                    bool ampm;
-
-                    String hour = timeSplit[0];
-                    int hourNum = Int32.Parse(hour);
-                    if(hourNum > 12)
-                    {
-                        ampm = false;
-                        hourNum = hourNum - 12;
-                        hour = hourNum.ToString();
-                    } else
-                    {
-                        ampm = true;
-                    }
-
-
-                    timer.setTime(hour, timeSplit[1], ampm);
-                    timer.GID = game.ID;
-
-                    realGame.addTimer(timer);
-
-                   
-
-
+                    ampm = false;
+                    hourNum = hourNum - 12;
+                    hour = hourNum.ToString();
+                } else
+                {
+                    ampm = true;
                 }
 
-                BossReader.Close();
 
-                List<Timer> gameTimers = realGame.getAllTimers();
+                timer.setTime(hour, timeSplit[1], ampm);
+                timer.GID = game.ID;
 
-                gameList.Add(realGame);
+                realGame.addTimer(timer);
+
+
+
 
             }
 
-            conn.Close();
+            BossReader.Close();
 
-            */
+            List<Timer> gameTimers = realGame.getAllTimers();
 
-            //The user is a "game" that has its own timers, the user timers
-            userTimers = new Game("User Games");
+            gameList.Add(realGame);
+
+        }
+
+        conn.Close();
+
+        */
+
+        //The user is a "game" that has its own timers, the user timers
+        userTimers = new Game("User Games");
 
             //notification testing
             notTimer.Visible = true;
@@ -408,5 +422,34 @@ namespace GameNotifier
                 }
             }
         }
+
+        /*
+
+        //minimize to tray when closed
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            { 
+                this.Hide();
+                e.Cancel = true;
+            }
+        }
+
+        //System tray quit button
+
+        private void handler_method(object senter, EventArgs e)
+        {
+            var eventArgs = e as MouseEventArgs;
+            switch (eventArgs.Button)
+            {
+                case MouseButtons.Right:
+                    this.Close();
+                    break;
+            }
+        }
+
+    */
+
+
     }
 }
