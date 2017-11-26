@@ -108,9 +108,7 @@ namespace GameNotifier
 
                     realGame.addTimer(timer);
 
-                    Console.WriteLine(realGame.getTimer(timerName).getName());
-                    Console.WriteLine(timer.getTimeHr() + " this is hour");
-                    Console.WriteLine(timer.GID.ToString());
+                   
 
 
                 }
@@ -118,11 +116,6 @@ namespace GameNotifier
                 BossReader.Close();
 
                 List<Timer> gameTimers = realGame.getAllTimers();
-
-                foreach(Timer timer in gameTimers)
-                {
-                    Console.WriteLine(timer.getName() + ":BossName, " + timer.GID.ToString() + ":GID");
-                }
 
                 gameList.Add(realGame);
 
@@ -218,7 +211,6 @@ namespace GameNotifier
                     int i = 0;
                     foreach(Timer timer in timers)
                     {
-                       Console.WriteLine(i.ToString());
                        lsbGameItems.Items.Add(timer.getName());
                        i++;
                     }
@@ -319,20 +311,26 @@ namespace GameNotifier
 
             int hour = Int32.Parse(selectedTimer.getTimeHr()); //deal with indexes in domainUpDownBox
             
-
-
              dudTimeHr.SelectedIndex = Int32.Parse(selectedTimer.getTimeHr()) - 1;
              dudTimeMin.SelectedIndex = Int32.Parse(selectedTimer.getTimeMin());
         }
 
-        //TODO add a notification asking if it's okay to delete the selected timer
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            String selectedTxt = lsbTimers.GetItemText(lsbTimers.SelectedItem);
-            Timer timer = userTimers.getTimer(selectedTxt);
 
-            userTimers.removeTimer(timer);
-            lsbTimers.Items.Remove(lsbTimers.SelectedItem);
+            var confirmResult = MessageBox.Show("Are you sure to delete this timer?",
+                                     "Confirm Delete",
+                                     MessageBoxButtons.YesNo);
+
+            if(confirmResult == DialogResult.Yes)
+            {
+                String selectedTxt = lsbTimers.GetItemText(lsbTimers.SelectedItem);
+                Timer timer = userTimers.getTimer(selectedTxt);
+
+                userTimers.removeTimer(timer);
+                lsbTimers.Items.Remove(lsbTimers.SelectedItem);
+            }
+            
         }
 
     }
