@@ -258,6 +258,27 @@ namespace GameNotifier
 
         }
 
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            foreach(Game game in gameList)
+            {
+                String gameName = game.getName();
+                gameName = gameName.ToLower();
+                if (txtSearch.Text.ToLower().Equals(gameName))
+                {
+                    for(int k = 0; k<lsbGames.Items.Count; k++)
+                    {
+                       DataRowView rowView = (DataRowView) lsbGames.Items[k];
+                        if (rowView[0].ToString().ToLower().Equals(gameName))
+                        {
+                            lsbGames.SelectedIndex = k;
+                        }
+                    }
+                }
+            }
+           
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             Timer newTimer = new Timer(txtName.Text);

@@ -183,6 +183,7 @@
             this.txtSearch.Size = new System.Drawing.Size(271, 28);
             this.txtSearch.TabIndex = 13;
             this.txtSearch.Text = "search";
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // lsbGames
             // 
@@ -277,11 +278,11 @@
             this.lblFind.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFind.ForeColor = System.Drawing.SystemColors.ControlLight;
             this.lblFind.Image = global::GameNotifier.Properties.Resources.btnBackgroundV1;
-            this.lblFind.Location = new System.Drawing.Point(62, 23);
+            this.lblFind.Location = new System.Drawing.Point(61, 17);
             this.lblFind.Name = "lblFind";
             this.lblFind.Size = new System.Drawing.Size(132, 58);
             this.lblFind.TabIndex = 20;
-            this.lblFind.Text = "Search For\r\nNotifiers";
+            this.lblFind.Text = "Search For\r\n Games";
             this.lblFind.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblActive
@@ -394,13 +395,13 @@
             this.dudTimeHr.Location = new System.Drawing.Point(538, 168);
             this.dudTimeHr.Name = "dudTimeHr";
             this.dudTimeHr.ReadOnly = true;
+            this.dudTimeHr.SelectedIndex = 0;
             this.dudTimeHr.Size = new System.Drawing.Size(69, 40);
             this.dudTimeHr.TabIndex = 27;
-            this.dudTimeHr.Text = "12";
+            this.dudTimeHr.Text = "01";
             this.dudTimeHr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.dudTimeHr.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
             this.dudTimeHr.SelectedItemChanged += new System.EventHandler(this.dudTimeHr_SelectedItemChanged);
-            this.dudTimeHr.SelectedIndex = 0;
             // 
             // dudTimeMin
             // 
@@ -471,11 +472,11 @@
             this.dudTimeMin.Location = new System.Drawing.Point(618, 168);
             this.dudTimeMin.Name = "dudTimeMin";
             this.dudTimeMin.ReadOnly = true;
+            this.dudTimeMin.SelectedIndex = 0;
             this.dudTimeMin.Size = new System.Drawing.Size(69, 40);
             this.dudTimeMin.TabIndex = 28;
-            this.dudTimeMin.Text = "59";
+            this.dudTimeMin.Text = "00";
             this.dudTimeMin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.dudTimeMin.SelectedIndex = 0;
             // 
             // grpbAmPm
             // 
